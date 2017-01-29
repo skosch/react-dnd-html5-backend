@@ -402,9 +402,13 @@ export default class HTML5Backend {
       });
     }
 
-    const canDrop = dragEnterTargetIds.some(
-      targetId => this.monitor.canDropOnTarget(targetId),
-    );
+    let canDrop = false;
+    for (let i = 0, l = dragEnterTargetIds.length; i < l; i++) {
+      if (this.monitor.canDropOnTarget(dragEnterTargetIds[i])) {
+        canDrop = true;
+        break;
+      }
+    }
 
     if (canDrop) {
       // IE requires this to fire dragover events
